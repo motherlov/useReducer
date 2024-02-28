@@ -42,3 +42,70 @@ const Counter = () => {
 }
 
 export default Counter;
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+import React, { useReducer, useState } from 'react';
+
+const initialState = 0;
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return state + 1;
+    case 'DECREMENT':
+      return state - 1;
+    case 'MULTIPLY':
+      return state * action.payload;
+    case 'DIVIDE':
+      return state / action.payload;
+    default:
+      return state;
+  }
+};
+
+const Calculator = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const [num, setNum] = useState(0);
+
+  const handleIncrement = () => {
+    dispatch({ type: 'INCREMENT' });
+  };
+
+  const handleDecrement = () => {
+    dispatch({ type: 'DECREMENT' });
+  };
+
+  const handleMultiply = () => {
+    dispatch({ type: 'MULTIPLY', payload: num });
+  };
+
+  const handleDivide = () => {
+    dispatch({ type: 'DIVIDE', payload: num });
+  };
+
+  return (
+    <div>
+      <p>Result: {state}</p>
+      <button onClick={handleIncrement}>Increment</button>
+      <button onClick={handleDecrement}>Decrement</button>
+      <input type="number" value={num} onChange={(e) => setNum(parseInt(e.target.value))} />
+      <button onClick={handleMultiply}>Multiply by {num}</button>
+      <button onClick={handleDivide}>Divide by {num}</button>
+    </div>
+  );
+};
+
+export default Calculator;
+
+
+
+
+
